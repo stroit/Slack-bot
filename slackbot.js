@@ -1,11 +1,11 @@
 var Bot = require('slackbots');
 const moment = require('moment');
-const sleep = require('sleep');
 const rp = require('request-promise');
 const bodyParser = require('body-parser');
+const CronJob = require('cron').CronJob;
 
 let settings = {
-    token: 'xoxb-130645201734-CoE98DS35RCQRXIWBhxVraHl',
+    token: 'xoxb-130645201734-2qsJOtCY16ZgPhkNLiDq8hRq',
     name: 'reminder'
 };
 bodyParser.json();
@@ -30,23 +30,25 @@ Bot.on('start', function() {
         .then(function(htmlString) {
             var parsedJson = JSON.parse(htmlString);
             for (var i = 0; i < 25; i++) {
-                gifLinks.push(parsedJson.data[i].images.original.url);
+                gifLinks.push(parsedJson.data[i].images.downsized.url);
             }
         })
         .finally(function() {
-            setInterval(function() {
-	            console.log(moment().hour);
-	            if (moment().hour() === 0) {
-                    let randNum = Math.floor(Math.random() * 25 + 1);
-                    Bot.postMessageToChannel('general', gifLinks[randNum], papa);
-                }
-            }, 1000 * 60 * 60);
+	        var job = new CronJob({
+		        cronTime: '00 00 00 * * 0-6',
+		        onTick: function() {
+			        let randNum = Math.floor(Math.random() * 25 + 1);
+			        Bot.postMessageToChannel('general', gifLinks[randNum], papa);
+			    },
+			    start: true,
+			    timeZone: 'EST'
+			});
+			//job.start();
         })
         .catch(function(err) {
             Bot.postMessageToChannel('general', "Bot Error!");
         })
 })
-
 
 function text() {
     let now = moment().dayOfYear();

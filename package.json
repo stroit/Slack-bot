@@ -10,6 +10,7 @@
   "dependencies": {
     "body-parser": "^1.16.0",
     "botkit": "^0.4.9",
+    "cron": "^1.2.1",
     "moment": "^2.17.1",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
