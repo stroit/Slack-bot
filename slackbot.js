@@ -5,7 +5,7 @@ const rp = require('request-promise');
 const bodyParser = require('body-parser');
 
 let settings = {
-    token: 'xoxp-128261913680-129045700020-130658324310-ea69702ae72df96bafa42fd8250f6c3c',
+    token: 'xoxb-130645201734-DdWouvhpOaTYdWZamtoUXrud',
     name: 'reminder'
 };
 bodyParser.json();
@@ -24,7 +24,7 @@ Bot.on('start', function() {
     };
     
     let gifLinks = [];
-    let giphyUrl = "http://api.giphy.com/v1/gifs/search?q=you%20can%20do%20it&api_key=dc6zaTOxFJmzC"
+    let giphyUrl = "http://api.giphy.com/v1/gifs/search?q=excited&api_key=dc6zaTOxFJmzC"
 
     rp(giphyUrl)
         .then(function(htmlString) {
@@ -33,16 +33,17 @@ Bot.on('start', function() {
                 gifLinks.push(parsedJson.data[i].images.original.url);
             }
         })
-        .catch(function(err) {
-            Bot.postMessageToChannel('general', "Bot Error!");
-        })
         .finally(function() {
             setInterval(function() {
-                if (moment().hour() === 0) {
+	            console.log(moment().hour);
+	            if (moment().hour() === 0) {
                     let randNum = Math.floor(Math.random() * 25 + 1);
                     Bot.postMessageToChannel('general', gifLinks[randNum], papa);
                 }
-            }, 1000 * 60);
+            }, 1000 * 60 * 60);
+        })
+        .catch(function(err) {
+            Bot.postMessageToChannel('general', "Bot Error!");
         })
 })
 
@@ -52,5 +53,5 @@ function text() {
     let day = moment("20170207").dayOfYear();
     let today = moment().format("MMMM Do");
 
-    return `_Today : \n${today}_\n\n*${day-now}* days left to finish project! \nCheer Up Nathan😊`;
+    return `_Today : ${today}_\n\n *${day-now}* days left to finish project! \nCheer Up Nathan😊`;
 }
