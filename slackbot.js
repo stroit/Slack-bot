@@ -5,7 +5,7 @@ const rp = require('request-promise');
 const bodyParser = require('body-parser');
 
 let settings = {
-    token: 'xoxb-130645201734-DdWouvhpOaTYdWZamtoUXrud',
+    token: 'xoxb-130645201734-CoE98DS35RCQRXIWBhxVraHl',
     name: 'reminder'
 };
 bodyParser.json();
