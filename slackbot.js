@@ -1,18 +1,20 @@
 var Bot = require('slackbots');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const rp = require('request-promise');
 const bodyParser = require('body-parser');
 const CronJob = require('cron').CronJob;
 
 let settings = {
-    token: 'xoxb-130645201734-2qsJOtCY16ZgPhkNLiDq8hRq',
+    token: 'xoxb-130645201734-sBS02yRe3p8EK7A6MbhMAXuf',
     name: 'reminder'
 };
+
 bodyParser.json();
+moment.tz.setDefault("EST");
 
 var Bot = new Bot(settings);
-
 Bot.on('start', function() {
+	console.log("[!] bot just started");
     let papa = {
         "attachments": [{
             "color": "#3498db",
@@ -48,8 +50,8 @@ Bot.on('start', function() {
         .catch(function(err) {
             Bot.postMessageToChannel('general', "Bot Error!");
         })
-})
-
+})	
+	
 function text() {
     let now = moment().dayOfYear();
     let day = moment("20170207").dayOfYear();
