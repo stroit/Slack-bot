@@ -59,5 +59,5 @@ function text() {
     let day = moment("20170207").dayOfYear();
     let today = moment().format("MMMM Do");
 
-    return `_Today : ${today}_\n\n *${day - now}* days left to finish project! \nCheer Up Nathan😊`;
+    return `_Today : ${today}_\n\n *${day-now}* days left to finish project! \nCheer Up Nathan😊`;
 }
